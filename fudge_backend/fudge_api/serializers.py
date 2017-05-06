@@ -16,13 +16,13 @@ class CategorySerializer(serializers.ModelSerializer):
 		fields = ('id', 'name', 'thumbnail', 'subcategories', )
 
 class TransactionSerializer(serializers.ModelSerializer):
-	category = CategorySerializer(many=False)
+	category = CategorySerializer(many=False, read_only=False)
 	class Meta:
 		model = Transaction
 		fields = '__all__'
 
 class BudgetSerializer(serializers.ModelSerializer):
-	transactions = TransactionSerializer(source='transaction_list', many=True)
+	transactions = TransactionSerializer(source='transaction_list', many=True, read_only=True)
 	class Meta:
 		model = Budget
 		fields = '__all__'
