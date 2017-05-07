@@ -25,7 +25,7 @@ SECRET_KEY = 'yhsmwsxaq(f=1ki-b%49@xj7tw(pa$r7-%3^h2&(^+35l5m0x0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dev-fudge.herokuapp.com', 'fudge.herokuapp.com']
+ALLOWED_HOSTS = ['dev-fudge.herokuapp.com', 'fudge.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework',
+    
     'fudge_api.apps.FudgeApiConfig',
 ]
 

@@ -9,17 +9,19 @@ class SubcategorySerializer(serializers.ModelSerializer):
 		fields = ('id', 'name', 'thumbnail', 'category', )
 
 
-class CategorySerializer(serializers.ModelSerializer):
-	subcategories = SubcategorySerializer(source='subcategory_list', many=True, read_only=True)
-	class Meta:
-		model = Category
-		fields = ('id', 'name', 'thumbnail', 'subcategories', )		
-
 class TransactionSerializer(serializers.ModelSerializer):
-	category = CategorySerializer(many=False, read_only=False)
 	class Meta:
 		model = Transaction
-		fields = '__all__'
+		fields = ('id', 'budget', 'amount', 'category', )
+
+
+class CategorySerializer(serializers.ModelSerializer):
+	subcategories = SubcategorySerializer(source='subcategory_list', many=True, read_only=True)
+	transactions = TransactionSerializer(source='transaction_list', many=True, read_only=True)
+	class Meta:
+		model = Category
+		exclude = ('transactions', )
+
 
 class BudgetSerializer(serializers.ModelSerializer):
 	transactions = TransactionSerializer(source='transaction_list', many=True, read_only=True)

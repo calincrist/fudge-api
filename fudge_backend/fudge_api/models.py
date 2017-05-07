@@ -44,12 +44,16 @@ class Category(BaseModel):
 	def subcategory_list(self):
 		return Subcategory.objects.filter(category=self)
 
+	def transaction_list(self):
+		return Transaction.objects.filter(category=self)
+
+
 
 class Transaction(BaseModel):
 	amount = models.FloatField(default=0.0)
 	notes = models.CharField(max_length=300, blank=True, default='')
 	budget = models.ForeignKey(Budget, related_name='transactions', null=True)
-	category = models.OneToOneField(Category, primary_key=False)
+	category = models.ForeignKey(Category, related_name='transaction', null=True)
 
 	def __unicode__(self):
 		return '%s: %s' % (str(self.amount), self.notes)

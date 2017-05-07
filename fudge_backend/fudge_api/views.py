@@ -44,6 +44,10 @@ class TransactionViewSet(viewsets.ModelViewSet):
 	def perform_create(self, serializer):
 		serializer.save()
 
+	def pre_save(self, obj):
+		obj.category = self.request.category
+
+
 class CategoryViewSet(viewsets.ModelViewSet):
 	"""
     Category viewset which provides `list` and `detail` actions for categories.
