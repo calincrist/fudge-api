@@ -49,7 +49,7 @@ class Transaction(BaseModel):
 	amount = models.FloatField(default=0.0)
 	notes = models.CharField(max_length=300, blank=True, default='')
 	budget = models.ForeignKey(Budget, related_name='transactions', null=True)
-	category = models.OneToOneField(Category, primary_key=True)
+	category = models.OneToOneField(Category, primary_key=False)
 
 	def __unicode__(self):
 		return '%s: %s' % (str(self.amount), self.notes)

@@ -63,3 +63,23 @@ class SubcategoryViewSet(viewsets.ModelViewSet):
 		serializer.save()
 
 
+class TransactionByBudget(viewsets.ModelViewSet):
+	queryset = Transaction.objects.all()
+	serializer_class = TransactionSerializer
+
+	def get_queryset(self):
+		budget_pk = self.kwargs['budget_pk']
+		return self.queryset.filter(budget__pk=budget_pk)
+
+	def pre_save(self, obj):
+		obj.budget_id = self.kwargs['budget_pk']
+
+
+
+
+
+
+
+
+
+
