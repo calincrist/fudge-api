@@ -6,7 +6,7 @@ from .models import Subcategory, Category, Budget, Transaction, Account
 class TransactionSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Transaction
-		fields = ('id', 'budget', 'amount', 'category', 'subcategory',)
+		fields = ('id', 'budget', 'amount', 'category', 'subcategory', 'created_date', )
 
 
 class SubcategorySerializer(serializers.ModelSerializer):
