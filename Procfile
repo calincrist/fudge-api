@@ -1,1 +1,1 @@
-web: gunicorn fudge-api.wsgi --log-file -
+web: gunicorn fudge_backend.wsgi --log-file-
