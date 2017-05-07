@@ -64,9 +64,9 @@ class Subcategory(BaseModel):
 class Transaction(BaseModel):
 	amount = models.FloatField(default=0.0)
 	notes = models.CharField(max_length=300, blank=True, default='')
-	budget = models.ForeignKey(Budget, related_name='transactions', null=True)
-	category = models.ForeignKey(Category, related_name='transaction', null=True)
-	subcategory = models.ForeignKey(Subcategory, related_name='transaction', null=True)
+	budget = models.ForeignKey(Budget, related_name='transactions', null=False)
+	category = models.ForeignKey(Category, related_name='transaction', null=False)
+	subcategory = models.ForeignKey(Subcategory, related_name='transaction', null=False)
 
 	def __unicode__(self):
 		return '%s: %s' % (str(self.amount), self.notes)
