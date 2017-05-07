@@ -48,25 +48,28 @@ class Category(BaseModel):
 		return Transaction.objects.filter(category=self)
 
 
+class Subcategory(BaseModel):
+	name = models.CharField(max_length=100, blank=True, default='')
+	thumbnail = models.ImageField(blank=True, null=True, upload_to=upload_to)
+	category = models.ForeignKey(Category, related_name='subcategories')
+
+	def __unicode__(self):
+		return '%s' % (self.name)
+
+
+	def transaction_list(self):
+		return Transaction.objects.filter(subcategory=self)
+
 
 class Transaction(BaseModel):
 	amount = models.FloatField(default=0.0)
 	notes = models.CharField(max_length=300, blank=True, default='')
 	budget = models.ForeignKey(Budget, related_name='transactions', null=True)
 	category = models.ForeignKey(Category, related_name='transaction', null=True)
+	subcategory = models.ForeignKey(Subcategory, related_name='transaction', null=True)
 
 	def __unicode__(self):
 		return '%s: %s' % (str(self.amount), self.notes)
-
-
-class Subcategory(BaseModel):
-	name = models.CharField(max_length=100, blank=True, default='')
-	thumbnail = models.ImageField(blank=True, null=True, upload_to=upload_to)
-	category = models.ForeignKey(Category, related_name='subcategories')
-	transaction = models.ForeignKey(Transaction, related_name='subcategory', null=True)
-
-	def __unicode__(self):
-		return '%s' % (self.name)
 
 
 class Account(BaseModel):

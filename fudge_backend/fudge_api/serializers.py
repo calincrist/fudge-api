@@ -3,16 +3,17 @@ from rest_framework import serializers
 from .models import Subcategory, Category, Budget, Transaction, Account
 
 
-class SubcategorySerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Subcategory
-		fields = ('id', 'name', 'thumbnail', 'category', )
-
-
 class TransactionSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Transaction
-		fields = ('id', 'budget', 'amount', 'category', )
+		fields = ('id', 'budget', 'amount', 'category', 'subcategory',)
+
+
+class SubcategorySerializer(serializers.ModelSerializer):
+	transactions = TransactionSerializer(source='transaction_list', many=True, read_only=True)
+	class Meta:
+		model = Subcategory
+		exclude = ('transactions', )
 
 
 class CategorySerializer(serializers.ModelSerializer):
